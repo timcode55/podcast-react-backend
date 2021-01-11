@@ -10,5 +10,5 @@ const connectDB = async () => {
 
 	console.log('DB connection was successful!');
 };
-
+// test
 module.exports = connectDB;
