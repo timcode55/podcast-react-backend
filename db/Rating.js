@@ -7,8 +7,12 @@ const Rating = mongoose.model(
 		rating: Number,
 		numberOfRatings: Number,
 		genre: String,
-		// description: String,
-		url: String
+		description: String,
+		website: String,
+		itunes: String,
+		categoryid: Number,
+		itunesid: Number,
+		listennotesurl: String
 	})
 );
 
