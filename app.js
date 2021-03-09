@@ -5,10 +5,12 @@ const request = require('request-promise');
 require('./db/mongoose');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const PORT = process.env.port || 8000;
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const dotenv = require('dotenv');
 
