@@ -22,34 +22,33 @@ dotenv.config({ path: './config.env' });
 connectDB();
 
 app.post('/findId', async (req, res) => {
+	let id = req.query.data;
 	try {
 		// const podcast = await Rating.findOne({ id: req.body.id }).lean();
 		// console.log(podcast, 'podcast in route');
 		// res.send(podcast);
 		// console.log(req.body.podcasts, 'req.body');
-		const newArray = [];
-		for (let pod of req.body.podcasts) {
-			// console.log(pod, 'pod in req.body', req.body.podcasts.length);
-			const podcast = await Rating.findOne({ id: pod.id }).lean();
-			// console.log(podcast, 'podcast in app.js');
-			pod['rating'] = podcast.rating;
-			pod['numberOfRatings'] = podcast.numberOfRatings || 'N/A';
-			pod['itunes'] = podcast.itunes;
-			// console.log(pod, 'pod right before push to newArray');
-			newArray.push(pod);
-		}
-		res.send(newArray);
+		// const newArray = [];
+		// for (let pod of req.body.podcasts) {
+		// console.log(pod, 'pod in req.body', req.body.podcasts.length);
+		const podcast = await Rating.findOne({ id }).lean();
+		// console.log(podcast, 'podcast in app.js');
+		// pod['rating'] = podcast.rating;
+		// pod['numberOfRatings'] = podcast.numberOfRatings || 'N/A';
+		// pod['itunes'] = podcast.itunes;
+		// console.log(pod, 'pod right before push to newArray');
+		// newArray.push(pod);
+		// }
+		res.send(podcast);
 		// console.log(req.body.podcasts, 'req.body.podcasts after findOne');
 	} catch (e) {
 		res.status(500).send();
 	}
 });
 
-app.post('/test', async (req, res) => {
-	res.send('This shit is actually working!');
-	console.log(req.body, 'req.body');
-	const podcast = await Rating.findOne({ id: req.body.id });
-	console.log(podcast, 'podcast in /test');
+app.use((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*');
+	next();
 });
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
